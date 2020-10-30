@@ -10,6 +10,7 @@ import tn.esprit.spring.entities.Mission;
 import tn.esprit.spring.entities.Timesheet;
 
 
+
 public interface IEmployeService {
 	
 	public Employe authenticate(String login, String password) ;
@@ -35,8 +36,12 @@ public interface IEmployeService {
 	Date dateDebut, Date dateFin);
 
 	int addOrUpdateEmploye(Employe employe);
+
+
+	public Employe addEmploye(Employe u);
 	
 	
+		
 	
 
 	

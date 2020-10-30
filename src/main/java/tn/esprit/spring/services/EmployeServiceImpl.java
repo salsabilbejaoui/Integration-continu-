@@ -14,6 +14,7 @@ import tn.esprit.spring.entities.Employe;
 import tn.esprit.spring.entities.Entreprise;
 import tn.esprit.spring.entities.Mission;
 import tn.esprit.spring.entities.Timesheet;
+
 import tn.esprit.spring.repository.ContratRepository;
 import tn.esprit.spring.repository.DepartementRepository;
 import tn.esprit.spring.repository.EmployeRepository;
@@ -30,7 +31,8 @@ public class EmployeServiceImpl implements IEmployeService {
 	ContratRepository contratRepoistory;
 	@Autowired
 	TimesheetRepository timesheetRepository;
-
+@Autowired 
+ITimesheetService timesheetservicess;
 	@Override
 	public Employe authenticate(String login, String password) {
 		return employeRepository.getEmployeByEmailAndPassword(login, password);
@@ -41,7 +43,10 @@ public class EmployeServiceImpl implements IEmployeService {
 		employeRepository.save(employe);
 		return employe.getId();
 	}
-
+	@Override
+	public Employe addEmploye(Employe u){
+		return employeRepository.save(u);
+	}
 
 	public void mettreAjourEmailByEmployeId(String email, int employeId) {
 		Employe employe = employeRepository.findById(employeId).get();
