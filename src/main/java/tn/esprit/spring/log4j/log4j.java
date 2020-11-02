@@ -16,7 +16,7 @@ public class log4j {
 
 			l.debug("Je vais ajouter des contrats.");
 			
-			l.debug("Je viens de lancer l'ajout. " );
+			l.debug("Je viens de lancer l'ajout FF . " );
 			l.debug("Je viens de finir l'opération d'ajout.");
 			l.info("Out getAllContrats() without errors.");
 		} catch (Exception e) {
