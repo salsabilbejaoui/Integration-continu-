@@ -33,11 +33,7 @@ public class EmployeServiceImplTest {
 		assertEquals(employe.getNom(), addedEmp.getNom());
 	}
 	
-	@Test
-	public void testGetAllEmployes() {
-		assertEquals(3, iEmployeService.getAllEmployes().size());
-	}
-	
+
 	@Test
 	public void testdeleteEmployeById() {
 		Employe employe = new Employe("Aymen", "lassoued", "iheb.lassoued@esprit.tn", true, Role.INGENIEUR);
