@@ -6,10 +6,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import tn.esprit.spring.entities.Employe;
 import tn.esprit.spring.entities.Role;
+import tn.esprit.spring.repository.EmployeRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -18,6 +20,8 @@ public class EmployeServiceImplTest {
 	@Autowired
 	IEmployeService iEmployeService;
 	
+	@Autowired
+	EmployeRepository repo ;
 	@Test
 	public void testMettreAjourEmailByEmployeId() {
 		Employe employe = new Employe("iheb", "iheb2", "iheb1@esprit.tn", true, Role.INGENIEUR);
@@ -34,8 +38,9 @@ public class EmployeServiceImplTest {
 	}
 	
 	@Test
+	@Rollback(false)
 	public void testGetAllEmployes() {
-		assertEquals(6, iEmployeService.getAllEmployes().size());
+		assertEquals(repo.countemp(), iEmployeService.getAllEmployes().size());
 	}
 	
 	@Test
