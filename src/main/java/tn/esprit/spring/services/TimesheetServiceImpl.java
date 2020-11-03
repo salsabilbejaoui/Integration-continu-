@@ -71,7 +71,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
 			l.info("l'employe doit etre chef de departement pour valider une feuille de temps !");
 			return null;
 		}
-		//verifier s'il est le chef de departement de la mission en question
+		//verifier s'il est le chef de departement de la mission en question;
 		boolean chefDeLaMission = false;
 		for(Departement dep : validateur.getDepartements()){
 			if(dep.getId() == mission.getDepartement().getId()){
