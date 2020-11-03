@@ -29,7 +29,7 @@ public class Mission implements Serializable {
 	@OneToMany(mappedBy="mission")
 	private  List<Timesheet> timesheets;
 	
-	public Mission() {
+	public Mission(int i, String string, String string2) {
 		super();
 	}
 
@@ -38,6 +38,11 @@ public class Mission implements Serializable {
 		this.description = description;
 	}
 	
+
+	public Mission() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public int getId() {
 		return id;

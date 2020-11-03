@@ -2,6 +2,7 @@ package tn.esprit.spring.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,12 +37,19 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 				// ==> c'est l'objet departement(le master) qui va mettre a jour l'association
 				//Rappel : la classe qui contient mappedBy represente le bout Slave
 				//Rappel : Dans une relation oneToMany le mappedBy doit etre du cote one.
-				Entreprise entrepriseManagedEntity = entrepriseRepoistory.findById(entrepriseId).get();
-				Departement depManagedEntity = deptRepoistory.findById(depId).get();
+		Optional<Entreprise> entrep = entrepriseRepoistory.findById(entrepriseId);
+		if(entrep.isPresent()) {
+			Entreprise entrepriseManagedEntity = entrep.get();
+		
+				Optional<Departement> dep = deptRepoistory.findById(depId);
+				if(dep.isPresent()) {
+					Departement depManagedEntity = dep.get();
 				
 				depManagedEntity.setEntreprise(entrepriseManagedEntity);
 				deptRepoistory.save(depManagedEntity);
 		
+	}
+		}
 	}
 	
 	public List<String> getAllDepartementsNamesByEntreprise(int entrepriseId) {
@@ -56,12 +64,19 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 
 	@Transactional
 	public void deleteEntrepriseById(int entrepriseId) {
-		entrepriseRepoistory.delete(entrepriseRepoistory.findById(entrepriseId).get());	
+		
+		Optional<Entreprise> entrep = entrepriseRepoistory.findById(entrepriseId);
+		if(entrep.isPresent()) {
+			Entreprise entrepriseManagedEntity = entrep.get();
+		entrepriseRepoistory.delete(entrepriseManagedEntity );	
 	}
-
+	}
 	@Transactional
 	public void deleteDepartementById(int depId) {
-		deptRepoistory.delete(deptRepoistory.findById(depId).get());	
+		Optional<Departement> dep = deptRepoistory.findById(depId);
+		if(dep.isPresent()) {
+			Departement depManagedEntity = dep.get();
+		deptRepoistory.delete(depManagedEntity);}	
 	}
 
 

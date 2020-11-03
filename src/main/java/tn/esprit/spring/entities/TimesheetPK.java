@@ -9,7 +9,6 @@ import javax.persistence.TemporalType;
 
 @Embeddable
 public class TimesheetPK implements Serializable {
-
 	private static final long serialVersionUID = 5377539445871317492L;
 
 	private int idMission;
@@ -70,10 +69,9 @@ public class TimesheetPK implements Serializable {
 				return false;
 		} else if (!dateFin.equals(other.dateFin))
 			return false;
-		if (idEmploye != other.idEmploye)
+		if (idEmploye != other.idEmploye)  
 			return false;
-		if (idMission != other.idMission)
-			return false;
+		
 		return true;
 	}
 
@@ -108,5 +106,4 @@ public class TimesheetPK implements Serializable {
 	public int getIdMission() {
 		return idMission;
 	}
-
 }
