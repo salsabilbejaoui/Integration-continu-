@@ -95,4 +95,13 @@
 		</plugins>
 		
 	</build>
+	<repositories>
+		
+<repository>
+
+<id>maven-group</id>
+<url>http://localhost:8081/repository/Test/</url>
+
+</repository>
+</repositories>
 </project>
