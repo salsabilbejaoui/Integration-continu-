@@ -34,4 +34,7 @@ public interface TimesheetRepository extends CrudRepository<Timesheet, Integer> 
 	public List<Timesheet> getTimesheetsByMissionAndDate(@Param("emp")Employe employe, @Param("mis")Mission mission, @Param("dateD")Date dateDebut,@Param("dateF")Date dateFin);
 
 	  public Timesheet findBytimesheetPK(TimesheetPK timesheetPK);
+	  public Timesheet findByTimesheetPK(TimesheetPK timesheetPK);
+
+
 }
