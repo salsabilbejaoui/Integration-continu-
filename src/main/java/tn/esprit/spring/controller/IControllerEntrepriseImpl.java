@@ -44,8 +44,5 @@ public class IControllerEntrepriseImpl{
 		return ientrepriseservice.getAllDepartementsNamesByEntreprise(entrepriseId);
 	}
 
-	public void deleteDepartementById(int depId) {
-		ientrepriseservice.deleteDepartementById(depId);
-
-	}
+	
 }

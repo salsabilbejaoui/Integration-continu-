@@ -36,23 +36,9 @@ public class RestControlEmploye {
 
 	
 
-	@PostMapping("/ajouterEmployer")
-	@ResponseBody
-	public Employe ajouterEmploye(@RequestBody Employe employe) {
-		iemployeservice.ajouterEmploye(employe);
-		l.info("employe ajouté ");
-		return employe;
-	}
 
-	// Modifier email :
-	// http://localhost:8081/SpringMVC/servlet/modifyEmail/1/newemail
-	@PutMapping(value = "/modifyEmail/{id}/{newemail}")
-	@ResponseBody
-	public void mettreAjourEmailByEmployeId(@PathVariable("newemail") String email, @PathVariable("id") int employeId) {
-		iemployeservice.mettreAjourEmailByEmployeId(email, employeId);
-		l.info("email modifié ");
 
-	}
+	
 
 	// http://localhost:8081/SpringMVC/servlet/affecterEmployeADepartement/1/1
 	@PutMapping(value = "/affecterEmployeADepartement/{idemp}/{iddept}")
@@ -69,13 +55,11 @@ public class RestControlEmploye {
 	}
 
 	// http://localhost:8081/SpringMVC/servlet/ajouterContrat
-	// {"reference":6,"dateDebut":"2020-03-01","salaire":2000,"typeContrat":"CDD"}
+
 	@PostMapping("/ajouterContrat")
 	@ResponseBody
 	public int ajouterContrat(@RequestBody Contrat contrat) {
 		iemployeservice.ajouterContrat(contrat);
-		l.info("les contrats ajoutés :" + contrat);
-
 		return contrat.getReference();
 	}
 
@@ -191,4 +175,3 @@ public class RestControlEmploye {
 
 	
 	
-}

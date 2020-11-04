@@ -120,10 +120,8 @@ public class EmployeServiceImpl implements IEmployeService {
 	}}
 
 	public String getEmployePrenomById(int employeId) {
-		l.debug("Je viens de lancer getEmployePrenomById. " );
-		Optional<Employe> employeop= this.employeRepository.findById(employeId);
-		Employe employeManagedEntity = employeop.get();
-		l.info("getEmployePrenomById done!!!! ");
+		Employe e = new Employe("", "", "", true, null);
+		Employe employeManagedEntity = employeRepository.findById(employeId).orElse(e);
 		return employeManagedEntity.getPrenom();
 	}
 	public void deleteEmployeById(int employeId)

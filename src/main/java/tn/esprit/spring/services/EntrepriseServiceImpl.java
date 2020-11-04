@@ -53,42 +53,60 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 	}
 
 	public List<String> getAllDepartementsNamesByEntreprise(int entrepriseId) {
-		Entreprise entrepriseManagedEntity = entrepriseRepoistory.findById(entrepriseId).get();
+		l.debug("methode getAllDepartementsNamesByEntreprise ");
 		List<String> depNames = new ArrayList<>();
-		for (Departement dep : entrepriseManagedEntity.getDepartements()) {
-			depNames.add(dep.getName());
+		try {
+			Entreprise entrepriseManagedEntity = entrepriseRepoistory.findById(entrepriseId).orElse(null);
+			
+			if(entrepriseManagedEntity!=null && entrepriseManagedEntity.getDepartements()!=null){
+			for(Departement dep : entrepriseManagedEntity.getDepartements()){
+				depNames.add(dep.getName());
+			}
+			l.debug("getAllDepartementsNamesByEntreprise fini avec succes ");
+			return depNames;
+			}
+			else {
+				l.error("erreur methode getAllDepartementsNamesByEntreprise : " );
+				return depNames;
+			}
+		} catch (Exception e) {
+			l.error("erreur methode getAllDepartementsNamesByEntreprise : " +e);
+			return depNames;
 		}
-		l.debug("Liste des departements par entreprise! ");
-		return depNames;
 	}
 	
 
 	@Transactional
 	public void deleteEntrepriseById(int entrepriseId) {
-		entrepriseRepoistory.delete(entrepriseRepoistory.findById(entrepriseId).get());
+		
 		l.info("entreprise supprimée!");
 		Optional<Entreprise> entrepriseop = this.entrepriseRepoistory.findById(entrepriseId);
 		if (entrepriseop.isPresent()) {
-			entrepriseRepoistory.delete(entrepriseop.get());
+			Entreprise entrepriseManagedEntity = entrepriseop.get();
+			entrepriseRepoistory.delete(entrepriseManagedEntity);
 		}
 
 	}
 
-	@Transactional
-	public void deleteDepartementById(int depId) {
-		deptRepoistory.delete(deptRepoistory.findById(depId).get());
-		l.info("departement supprimé!");
-		Optional<Departement> departementoptional = this.deptRepoistory.findById(depId);
-		if (departementoptional.isPresent()) {
-			deptRepoistory.delete(departementoptional.get());
-		}
-	}
+
 
 	public Entreprise getEntrepriseById(int entrepriseId) {
-		return entrepriseRepoistory.findById(entrepriseId).get();
+		l.debug("methode getEntrepriseById ");
+		
+		
+		try {
+			Entreprise et= entrepriseRepoistory.findById(entrepriseId).orElse(null);
+			l.debug("getEntrepriseById fini avec succes ");
+			return et;
+		} catch (Exception e) {
+			l.error("erreur methode getEntrepriseById : " +e);
+			return null;
+		}
 
 		
 	
 
 	}
+
+	
 }
