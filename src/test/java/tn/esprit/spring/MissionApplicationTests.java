@@ -1,10 +1,10 @@
 package tn.esprit.spring;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Assert;
 
-import java.text.ParseException;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,18 +30,18 @@ public void	affecterMissionADepartementTest()
 {
 
 int iddep=timesheetservice.affecterMissionADepartement(1,1);
-assertEquals(1 ,iddep);
+Assert.assertEquals(1 ,iddep);
 }
 	
 	@Test 
 	public void findAllMissionByEmployeJPQLTest()  {
 	int nbremission=timesheetservice.findAllMissionByEmployeJPQL(1).size();
-		assertEquals(2,nbremission);
+	Assert.assertEquals(2,nbremission);
 	}
 	@Test
 	public void getAllEmployeByMission()
 	{
 		int nbreemploye=timesheetservice.getAllEmployeByMission(1).size();
-		assertEquals(2,nbreemploye);
+		Assert.assertEquals(2,nbreemploye);
 	}
 }
