@@ -99,7 +99,6 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		l.info("dans getTimeshhetBYMission and Date de l'employer ");
 		l.info(" sortie de gettimesheetbymISSIONet date ");
 		return timesheetRepository.getTimesheetsByMissionAndDate(employe, mission, dateDebut, dateFin);
-		
 	}
 	
 	
