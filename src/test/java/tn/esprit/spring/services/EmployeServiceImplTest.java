@@ -15,7 +15,7 @@ import tn.esprit.spring.repository.EmployeRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class EmployeServiceImplTest {
+ class EmployeServiceImplTest {
 	
 	@Autowired
 	IEmployeService iEmployeService;
@@ -23,7 +23,7 @@ public class EmployeServiceImplTest {
 	@Autowired
 	EmployeRepository repo ;
 	@Test
-	public void testMettreAjourEmailByEmployeId() {
+	 void testMettreAjourEmailByEmployeId() {
 		Employe employe = new Employe("iheb", "iheb2", "iheb1@esprit.tn", true, Role.INGENIEUR);
 		Employe addedEmp = iEmployeService.addOrUpdateEmploye(employe);
 		Employe updatedEmploye = iEmployeService.mettreAjourEmailByEmployeId("iheblaass@mail.com", addedEmp.getId());
@@ -31,7 +31,7 @@ public class EmployeServiceImplTest {
 	}
 	
 	@Test
-	public void testaddOrUpdateEmploye() {
+	 void testaddOrUpdateEmploye() {
 		Employe employe = new Employe("Ahmed", "lacktyi2", "iheb2@esprit.tn", true, Role.INGENIEUR);
 		Employe addedEmp = iEmployeService.addOrUpdateEmploye(employe);
 		assertEquals(employe.getNom(), addedEmp.getNom());
@@ -39,19 +39,19 @@ public class EmployeServiceImplTest {
 	
 	@Test
 	@Rollback(false)
-	public void testGetAllEmployes() {
+	 void testGetAllEmployes() {
 		assertEquals(repo.countemp(), iEmployeService.getAllEmployes().size());
 	}
 	
 	@Test
-	public void testdeleteEmployeById() {
+	 void testdeleteEmployeById() {
 		Employe employe = new Employe("Aymen", "lassoued", "iheb.lassoued@esprit.tn", true, Role.INGENIEUR);
 		Employe addedEmp = iEmployeService.addOrUpdateEmploye(employe);
 		assertTrue(iEmployeService.deleteEmployeById(addedEmp.getId()));
 	}
 	
 	@Test
-	public void testGetEmployePrenomById() {
+	 void testGetEmployePrenomById() {
 		Employe employe = new Employe("Sami", "lassoued", "mo.lo@esprit.tn", true, Role.INGENIEUR);
 		Employe addedEmp = iEmployeService.addOrUpdateEmploye(employe);
 		assertNotNull(iEmployeService.getEmployePrenomById(addedEmp.getId()));

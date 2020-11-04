@@ -2,6 +2,7 @@ package tn.esprit.spring.controller;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +19,12 @@ import tn.esprit.spring.services.IEmployeService;
 import tn.esprit.spring.services.IEntrepriseService;
 import tn.esprit.spring.services.ITimesheetService;
 
+
+
 @RestController
 public class RestControlEntreprise {
 
-	
+	private static final Logger l = Logger.getLogger(RestControlEntreprise.class);
 	@Autowired
 	IEmployeService iemployeservice;
 	@Autowired
@@ -64,10 +67,12 @@ public class RestControlEntreprise {
     // http://localhost:8081/SpringMVC/servlet/ajouterDepartement
  
 
- 	@PostMapping("/ajouterDepartement")
- 	@ResponseBody
+    @PostMapping("/ajouterDepartement")
+	@ResponseBody
 	public int ajouterDepartement(@RequestBody Departement dep) {
+		l.info("departement ajouté " + dep);
 		return ientrepriseservice.ajouterDepartement(dep);
+
 	}
 	
  	 // http://localhost:8081/SpringMVC/servlet/getAllDepartementsNamesByEntreprise/1
@@ -84,4 +89,7 @@ public class RestControlEntreprise {
 		ientrepriseservice.deleteDepartementById(depId);
 
 	}
+    
+    
+    
 }

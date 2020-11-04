@@ -31,18 +31,19 @@ public class ControllerEmployeImpl  {
 	IEmployeService employeService;
 
 	private String login; 
-	private String password; 
-	private Boolean loggedIn;
+	private String password1; 
+	private Boolean loggedIn1;
 
 	private Employe authenticatedUser = null; 
-	private String prenom; 
-	private String nom; 
-	private String email;
-	private boolean actif;
-	private Role role;  
+	private String prenom1; 
+	private String nom1; 
+	private String email1;
+	private boolean actif1;
+	private Role role1;  
 	public Role[] getRoles() { return Role.values(); }
 
 	private List<Employe> employes; 
+
 
 	private Integer employeIdToBeUpdated; 
 	
@@ -52,10 +53,10 @@ public class ControllerEmployeImpl  {
 	public String doLogin() {
 
 		String navigateTo = "null";
-		authenticatedUser=employeService.authenticate(login, password);
+		authenticatedUser=employeService.authenticate(login, password1);
 		if (authenticatedUser != null && authenticatedUser.getRole() == Role.ADMINISTRATEUR) {
 			navigateTo = "/pages/admin/welcome.xhtml?faces-redirect=true";
-			loggedIn = true;
+			loggedIn1 = true;
 		}		
 
 		else
@@ -78,15 +79,15 @@ public class ControllerEmployeImpl  {
 
 	public String addEmploye() {
 
-		if (authenticatedUser==null || !loggedIn) return loginUrl;
+		if (authenticatedUser==null || !loggedIn1) return loginUrl;
 
-		employeService.addOrUpdateEmploye(new Employe(nom, prenom, email, password, actif, role)); 
+		employeService.addOrUpdateEmploye(new Employe(nom1, prenom1, email1, password1, actif1, role1)); 
 		return "null"; 
 	}  
 
 	public String removeEmploye(int employeId) {
 		String navigateTo = "null";
-		if (authenticatedUser==null || !loggedIn) return loginUrl;
+		if (authenticatedUser==null || !loggedIn1) return loginUrl;
 
 		employeService.deleteEmployeById(employeId);
 		return navigateTo; 
@@ -95,15 +96,15 @@ public class ControllerEmployeImpl  {
 	public String displayEmploye(Employe empl) 
 	{
 		String navigateTo = "null";
-		if (authenticatedUser==null || !loggedIn) return loginUrl;
+		if (authenticatedUser==null || !loggedIn1) return loginUrl;
 
 
-		this.setPrenom(empl.getPrenom());
-		this.setNom(empl.getNom());
-		this.setActif(empl.isActif()); 
-		this.setEmail(empl.getEmail());
-		this.setRole(empl.getRole());
-		this.setPassword(empl.getPassword());
+		this.setPrenom1(empl.getPrenom());
+		this.setNom1(empl.getNom());
+		this.setActif1(empl.isActif()); 
+		this.setEmail1(empl.getEmail());
+		this.setRole1(empl.getRole());
+		this.setPassword1(empl.getPassword());
 		this.setEmployeIdToBeUpdated(empl.getId());
 
 		return navigateTo; 
@@ -114,9 +115,9 @@ public class ControllerEmployeImpl  {
 	{ 
 		String navigateTo = "null";
 		
-		if (authenticatedUser==null || !loggedIn) return loginUrl;
+		if (authenticatedUser==null || !loggedIn1) return loginUrl;
 
-		employeService.addOrUpdateEmploye(new Employe(employeIdToBeUpdated, nom, prenom, email, password, actif, role)); 
+		employeService.addOrUpdateEmploye(new Employe(employeIdToBeUpdated, nom1, prenom1, email1, password1, actif1, role1)); 
 
 		return navigateTo; 
 
@@ -141,12 +142,12 @@ public class ControllerEmployeImpl  {
 		this.login = login;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getPassword1() {
+		return password1;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassword1(String password) {
+		this.password1 = password;
 	}
 
 
@@ -154,12 +155,12 @@ public class ControllerEmployeImpl  {
 		return employeService.getAllEmployes();
 	}
 
-	public Boolean getLoggedIn() {
-		return loggedIn;
+	public Boolean getLoggedIn1() {
+		return loggedIn1;
 	}
 
-	public void setLoggedIn(Boolean loggedIn) {
-		this.loggedIn = loggedIn;
+	public void setLoggedIn1(Boolean loggedIn) {
+		this.loggedIn1 = loggedIn;
 	}
 
 	public int ajouterEmploye(Employe employe)
@@ -246,47 +247,47 @@ public class ControllerEmployeImpl  {
 		return employeService.getTimesheetsByMissionAndDate(employe, mission, dateDebut, dateFin);
 	}
 
-	public String getPrenom() {
-		return prenom;
+	public String getPrenom1() {
+		return prenom1;
 	}
 
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
+	public void setPrenom1(String prenom) {
+		this.prenom1 = prenom;
 	}
 
-	public String getNom() {
-		return nom;
+	public String getNom1() {
+		return nom1;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setNom1(String nom) {
+		this.nom1 = nom;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getEmail1() {
+		return email1;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmail1(String email) {
+		this.email1 = email;
 	}
 
 
 
 
-	public boolean isActif() {
-		return actif;
+	public boolean isActif1() {
+		return actif1;
 	}
 
-	public void setActif(boolean actif) {
-		this.actif = actif;
+	public void setActif1(boolean actif) {
+		this.actif1 = actif;
 	}
 
-	public Role getRole() {
-		return role;
+	public Role getRole1() {
+		return role1;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setRole1(Role role) {
+		this.role1 = role;
 	}
 
 	public List<Employe> getEmployes() {

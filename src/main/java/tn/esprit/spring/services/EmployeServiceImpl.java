@@ -33,6 +33,21 @@ public class EmployeServiceImpl implements IEmployeService {
 	@Autowired
 	TimesheetRepository timesheetRepository;
 
+	
+	
+	
+	@Override
+	public int ajouterEmploye(Employe employe) {
+		
+		employeRepository.save(employe);
+		
+		
+		return employe.getId();
+	}
+	
+	
+	
+	
 	@Override
 	public Employe authenticate(String login, String password) {
 		return employeRepository.getEmployeByEmailAndPassword(login, password);
@@ -102,8 +117,9 @@ public class EmployeServiceImpl implements IEmployeService {
 		Employe employeManagedEntity = employeRepository.findById(employeId).orElse(null);
 		if(contratManagedEntity!=null && employeManagedEntity!=null) {
 			contratManagedEntity.setEmploye(employeManagedEntity);
+			contratRepoistory.save(contratManagedEntity);
 		}
-		contratRepoistory.save(contratManagedEntity);
+		
 
 	}
 

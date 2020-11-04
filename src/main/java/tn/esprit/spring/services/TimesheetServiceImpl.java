@@ -40,9 +40,9 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		Departement dep = deptRepoistory.findById(depId).orElse(null);
 		if(mission!=null) {
 			mission.setDepartement(dep);
-
+			missionRepository.save(mission);
 		}
-		missionRepository.save(mission);
+		
 		
 	}
 
