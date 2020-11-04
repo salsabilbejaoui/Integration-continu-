@@ -20,53 +20,71 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 	@Autowired
 	DepartementRepository deptRepoistory;
 	
-	public int ajouterEntreprise(Entreprise entreprise) {
+	public Entreprise ajouterEntreprise(Entreprise entreprise) {
 		entrepriseRepoistory.save(entreprise);
-		return entreprise.getId();
+		return entreprise;
 	}
 
-	public int ajouterDepartement(Departement dep) {
+	public Departement ajouterDepartement(Departement dep) {
 		deptRepoistory.save(dep);
-		return dep.getId();
+		return dep;
 	}
-	
+	@Transactional
 	public void affecterDepartementAEntreprise(int depId, int entrepriseId) {
-		//Le bout Master de cette relation N:1 est departement  
-				//donc il faut rajouter l'entreprise a departement 
-				// ==> c'est l'objet departement(le master) qui va mettre a jour l'association
-				//Rappel : la classe qui contient mappedBy represente le bout Slave
-				//Rappel : Dans une relation oneToMany le mappedBy doit etre du cote one.
-				Entreprise entrepriseManagedEntity = entrepriseRepoistory.findById(entrepriseId).get();
-				Departement depManagedEntity = deptRepoistory.findById(depId).get();
-				
+		
+				Entreprise entrepriseManagedEntity = entrepriseRepoistory.findById(entrepriseId).orElse(null);
+				Departement depManagedEntity = deptRepoistory.findById(depId).orElse(null);
+				if(depManagedEntity!=null) {
 				depManagedEntity.setEntreprise(entrepriseManagedEntity);
-				deptRepoistory.save(depManagedEntity);
+				deptRepoistory.save(depManagedEntity);}
 		
 	}
 	
 	public List<String> getAllDepartementsNamesByEntreprise(int entrepriseId) {
-		Entreprise entrepriseManagedEntity = entrepriseRepoistory.findById(entrepriseId).get();
+		Entreprise entrepriseManagedEntity = entrepriseRepoistory.findById(entrepriseId).orElse(null);
 		List<String> depNames = new ArrayList<>();
+		if(entrepriseManagedEntity!=null){
 		for(Departement dep : entrepriseManagedEntity.getDepartements()){
 			depNames.add(dep.getName());
-		}
+		}}
 		
 		return depNames;
 	}
 
 	@Transactional
-	public void deleteEntrepriseById(int entrepriseId) {
-		entrepriseRepoistory.delete(entrepriseRepoistory.findById(entrepriseId).get());	
+	public Boolean  deleteEntrepriseById(int entrepriseId) {
+		
+	
+			Entreprise entrepriseManagedEntity = entrepriseRepoistory.findById(entrepriseId).orElse(null);
+
+			if(entrepriseManagedEntity!=null) {
+				
+
+				entrepriseRepoistory.delete(entrepriseManagedEntity);
+				
+			}
+			return true;		
 	}
 
 	@Transactional
-	public void deleteDepartementById(int depId) {
-		deptRepoistory.delete(deptRepoistory.findById(depId).get());	
+	public Boolean deleteDepartementById(int depId) {
+		Departement depManagedEntity = deptRepoistory.findById(depId).orElse(null);
+		if(depManagedEntity!=null) {
+			
+
+			deptRepoistory.delete(depManagedEntity);
+			
+		}
+
+		return true;	
 	}
 
 
 	public Entreprise getEntrepriseById(int entrepriseId) {
-		return entrepriseRepoistory.findById(entrepriseId).get();	
+
+		return entrepriseRepoistory.findById(entrepriseId).orElse(null);	
 	}
+
+	
 
 }
