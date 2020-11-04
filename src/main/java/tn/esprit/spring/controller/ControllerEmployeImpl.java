@@ -6,9 +6,6 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.ocpsoft.rewrite.annotation.Join;
 import org.ocpsoft.rewrite.el.ELBeanName;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,29 +44,18 @@ public class ControllerEmployeImpl  {
 
 	private List<Employe> employes; 
 
-	private Integer employeIdToBeUpdated; // getter et setter
+	private Integer employeIdToBeUpdated; 
 	
-	
-	private static final Logger l = LogManager.getLogger(ControllerEmployeImpl.class);
+	String loginUrl= "/login.xhtml?faces-redirect=true";
 
 
 	public String doLogin() {
 
 		String navigateTo = "null";
 		authenticatedUser=employeService.authenticate(login, password);
-		
-		l.debug("Authenticating employe with Email and Password!" + email + password );
-		
 		if (authenticatedUser != null && authenticatedUser.getRole() == Role.ADMINISTRATEUR) {
 			navigateTo = "/pages/admin/welcome.xhtml?faces-redirect=true";
-			
 			loggedIn = true;
-			
-			
-			l.warn("we're testing logging with SpringBoot...");
-			
-			l.info(" Welcome! : " + authenticatedUser);
-				
 		}		
 
 		else
@@ -78,75 +64,40 @@ public class ControllerEmployeImpl  {
 			FacesMessage facesMessage =
 					new FacesMessage("Login Failed: Please check your username/password and try again.");
 			FacesContext.getCurrentInstance().addMessage("form:btn",facesMessage);
-			
-			l.warn("Oops! warning,OK! Please check your username/password and try again : " + facesMessage);
-				
 		}
 		return navigateTo;	
 	}
 
-	
-	private static final String ACTION = "/login.xhtml?faces-redirect=true"; 
 	public String doLogout()
 	{
-		
-	
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		
-		l.info("Logout" );
-		
-		
-		
 	
-	return ACTION;
-	
-	
-	
-	
-	
-	
-	
+	return "/login.xhtml?faces-redirect=true";
 	}
 
 
 	public String addEmploye() {
 
-		if (authenticatedUser==null || !loggedIn) return ACTION;
+		if (authenticatedUser==null || !loggedIn) return loginUrl;
 
 		employeService.addOrUpdateEmploye(new Employe(nom, prenom, email, password, actif, role)); 
-		
-		l.info("Employe added!" + email +nom +prenom);
-			
-			
-		return "null";
-		
-		
+		return "null"; 
 	}  
-	
-	
-	
-	
 
 	public String removeEmploye(int employeId) {
 		String navigateTo = "null";
-		if (authenticatedUser==null || !loggedIn) return ACTION;
-		
-	
-		l.info(" In Remove Employe!" + email  );
+		if (authenticatedUser==null || !loggedIn) return loginUrl;
+
 		employeService.deleteEmployeById(employeId);
-		
-		l.info(" out Remove Employe !" + email );
-		
 		return navigateTo; 
 	} 
 
 	public String displayEmploye(Employe empl) 
 	{
 		String navigateTo = "null";
-		if (authenticatedUser==null || !loggedIn) return ACTION;
+		if (authenticatedUser==null || !loggedIn) return loginUrl;
 
-		l.info("In  displayEmploye : "  ); 
-		
+
 		this.setPrenom(empl.getPrenom());
 		this.setNom(empl.getNom());
 		this.setActif(empl.isActif()); 
@@ -154,9 +105,6 @@ public class ControllerEmployeImpl  {
 		this.setRole(empl.getRole());
 		this.setPassword(empl.getPassword());
 		this.setEmployeIdToBeUpdated(empl.getId());
-		 
-		l.info("out  displayEmploye : "  );
-		
 
 		return navigateTo; 
 
@@ -166,12 +114,10 @@ public class ControllerEmployeImpl  {
 	{ 
 		String navigateTo = "null";
 		
-		if (authenticatedUser==null || !loggedIn) return ACTION;
+		if (authenticatedUser==null || !loggedIn) return loginUrl;
 
 		employeService.addOrUpdateEmploye(new Employe(employeIdToBeUpdated, nom, prenom, email, password, actif, role)); 
-  
-		l.info("Employe updated!");
-		
+
 		return navigateTo; 
 
 	} 
@@ -216,10 +162,6 @@ public class ControllerEmployeImpl  {
 		this.loggedIn = loggedIn;
 	}
 
-	
-	
-	
-	
 	public int ajouterEmploye(Employe employe)
 	{
 		employeService.addOrUpdateEmploye(employe);
