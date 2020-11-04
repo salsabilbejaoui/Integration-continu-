@@ -17,21 +17,21 @@ public class ContartTest {
 	@Autowired
 	IEmployeService es;
 
-	@Test
-	public void contextLoads() {
-
-		Contrat contrat = new Contrat(new Date(), "bbbb", 1);
-		es.ajouterContrat(contrat);
-	}
-
-	@Test
-	public void contextLoads1() {
-		es.deleteContratById(3);
-	}
-
-	@Test
-	public void contextLoads2() {
-		es.deleteAllContratJPQL();
-		
-	}
+//	@Test
+//	public void contextLoads() {
+//
+//		Contrat contrat = new Contrat(new Date(), "bbbb", 1);
+//		es.ajouterContrat(contrat);
+//	}
+//
+//	@Test
+//	public void contextLoads1() {
+//		es.deleteContratById(3);
+//	}
+//
+//	@Test
+//	public void contextLoads2() {
+//		es.deleteAllContratJPQL();
+//		
+//	}
 }
