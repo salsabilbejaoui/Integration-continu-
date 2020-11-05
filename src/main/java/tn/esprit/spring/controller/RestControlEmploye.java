@@ -3,7 +3,7 @@ package tn.esprit.spring.controller;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,35 +14,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import tn.esprit.spring.entities.Contrat;
+import tn.esprit.spring.dto.EmployeDTO;
+
 import tn.esprit.spring.entities.Employe;
 import tn.esprit.spring.entities.Entreprise;
 import tn.esprit.spring.entities.Mission;
 import tn.esprit.spring.entities.Timesheet;
+import tn.esprit.spring.mapper.TimesheetMapper;
 import tn.esprit.spring.services.IEmployeService;
 import tn.esprit.spring.services.IEntrepriseService;
 import tn.esprit.spring.services.ITimesheetService;
 
 @RestController
 public class RestControlEmploye {
-	private static final Logger l = Logger.getLogger(RestControlEmploye.class);
+	
 	@Autowired
 	IEmployeService iemployeservice;
 	@Autowired
 	IEntrepriseService ientrepriseservice;
 	@Autowired
 	ITimesheetService itimesheetservice;
-
+	@Autowired
+	TimesheetMapper timesheetMapper1;
 	
 	
 	@PostMapping("/ajouterEmployer")
 	@ResponseBody
-	public Employe ajouterEmploye(@RequestBody Employe employe1)
-	{
-		l.info("In  addUser : " + employe1); 
-		iemployeservice.addOrUpdateEmploye(employe1);
-		l.info("Out of  addUser. ");
-		return employe1;
+	public Employe ajouterEmploye(@RequestBody EmployeDTO empl) {
+		Employe employe = timesheetMapper1.mapEmployeDtoToEmploye(empl);
+		iemployeservice.addOrUpdateEmploye(employe);
+		return employe;
 	}
 	
 	@PutMapping(value = "/modifyEmail/{id}/{newemail}") 
@@ -64,12 +65,7 @@ public class RestControlEmploye {
 	}
 
 
-	@PostMapping("/ajouterContrat")
-	@ResponseBody
-	public int ajouterContrat(@RequestBody Contrat contrat) {
-		iemployeservice.ajouterContrat(contrat);
-		return contrat.getReference();
-	}
+
 	
    @PutMapping(value = "/affecterContratAEmploye/{idcontrat}/{idemp}") 
 	public void affecterContratAEmploye(@PathVariable("idcontrat")int contratId, @PathVariable("idemp")int employeId)

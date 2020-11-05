@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import tn.esprit.spring.dto.MissionDTO;
 import tn.esprit.spring.entities.Employe;
 import tn.esprit.spring.entities.Mission;
+import tn.esprit.spring.mapper.TimesheetMapper;
 import tn.esprit.spring.services.IEmployeService;
 import tn.esprit.spring.services.IEntrepriseService;
 import tn.esprit.spring.services.ITimesheetService;
@@ -28,11 +30,14 @@ public class RestControlTimesheet {
 	@Autowired
 	ITimesheetService itimesheetservice;
 	
-	// http://localhost:8081/SpringMVC/servlet/ajouterMission
+	@Autowired
+	TimesheetMapper timesheetMapper3;
+	
 	
 	@PostMapping("/ajouterMission")
 	@ResponseBody
-	public int ajouterMission(@RequestBody Mission mission) {
+	public int ajouterMission(@RequestBody MissionDTO m) {
+		Mission mission =timesheetMapper3.mapMissionDtoToMission(m);
 		itimesheetservice.ajouterMission(mission);
 		return mission.getId();
 	}

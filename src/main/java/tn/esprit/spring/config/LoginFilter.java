@@ -24,7 +24,7 @@ public class LoginFilter implements Filter {
 		ControllerEmployeImpl employeController = 
 				(ControllerEmployeImpl) httpServletRequest.getSession().getAttribute("employeController");
 
-		if (employeController!=null && employeController.getAuthenticatedUser() != null && employeController.getLoggedIn()) 
+		if (employeController!=null && employeController.getAuthenticatedUser() != null && employeController.getLoggedIn2() != null) 
 		{ filterChain.doFilter(servletRequest, servletResponse);} 
 		
 		else {httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login.jsf" );}
