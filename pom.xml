@@ -95,7 +95,8 @@
 		</plugins>
 		
 	</build>
-	<repositories>
+<distributionManagement>
+	 
 		
 <repository>
 
@@ -103,5 +104,7 @@
 <url>http://localhost:8081/repository/Test/</url>
 
 </repository>
-</repositories>
+ 
+</distributionManagement>
+
 </project>
