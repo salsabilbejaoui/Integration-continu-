@@ -1,6 +1,6 @@
 package tn.esprit.spring.services;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Assert;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +24,6 @@ public class DepartementServiceImplTest {
 	@Test
 	@Rollback(false)
 	 public void testGetAllDepartements() {
-		assertEquals(repo.countdep(), iDepartementService.getAllDepartements().size());
+		Assert.assertEquals(repo.countdep(), iDepartementService.getAllDepartements().size());
 	}
 }

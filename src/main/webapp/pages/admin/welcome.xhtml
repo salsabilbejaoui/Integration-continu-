@@ -26,13 +26,12 @@
 				<table>
 					<tr>
 						<td><h:outputText value="Login (Email)"></h:outputText></td>
-						<td>
-<h:inputText id="validateMail" required="true" validatorMessage="Le format du mail est invalide!" requiredMessage="Mail obligatoire!" value="#{employeController.email}">
-<f:validateRegex pattern=".+\@.+\..+" /> 
-</h:inputText> 
-<h:message for="validateMail" />
-								
-								</td>
+						<td><h:inputText id="validateMail" required="true"
+								validatorMessage="Le format du mail est invalide!"
+								requiredMessage="Mail obligatoire!"
+								value="#{employeController.email}">
+								<f:validateRegex pattern=".+\@.+\..+" />
+							</h:inputText> <h:message for="validateMail" /></td>
 					</tr>
 					<tr>
 						<td><h:outputText value="Mot de Passe"></h:outputText></td>
